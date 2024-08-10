@@ -35,8 +35,8 @@
                     Console.WriteLine("IBAN \"TR\" ile Başlamalı");
                 }
             }
-        } 
-        static void login(double balance,string password,bool controller)
+        }
+        static void login(double balance, string password, bool controller)
         {
 
 
@@ -69,9 +69,9 @@
             if (controller) //şifre değiştirme ekranında hatalı giriş yapılırsa sistem kitlemek yerine anamenüye yönlendiriyor. ????
             {
                 Console.WriteLine("3 Kez Hatalı Şifre Girdiniz!! \n Anamenüye Yönlendiriliyorsunuz.");
-                menu(balance,password);
+                menu(balance, password);
             }
-        } 
+        }
         static void withdraw(double balance) // para çekimi
         {
         }
@@ -87,17 +87,17 @@
         {
 
         }
-        static string changePassword(double balance,string password)
+        static string changePassword(double balance, string password)
         {
-            login(balance,password, true);
+            login(balance, password, true);
             Console.WriteLine("Yeni Şifreyi Giriniz:");
             password = Console.ReadLine();
             return password;
         }
 
-        static void kartliIslem(double balance, string password)
+        static void withCard(double balance, string password)
         {
-            login(balance,password,false);
+            login(balance, password, false);
             Console.WriteLine(" Para Çekmek İçin 1,\n Para Yatırmak İçin 2,\n Para Transferi İçin 3,\n Eğitim Ödemeleri İçin 4,\n Ödemeler için 5,\n Bilgi Güncellemek için 6 Tuşlayınız.");
 
             string choice = Console.ReadLine();
@@ -105,29 +105,39 @@
             {
                 case "1":
                     withdraw(balance);
+                    menu(balance, password);
                     break;
                 case "2":
                     deposit(balance);
+                    menu(balance, password);
                     break;
                 case "3":
                     transfer(balance);
+                    menu(balance, password);
                     break;
                 case "4":
                     educationalPayments(balance);
+                    menu(balance, password);
                     break;
                 case "5":
                     payments(balance);
+                    menu(balance, password);
                     break;
                 case "6":
-                    changePassword(balance,password);
+                    changePassword(balance, password);
+                    menu(balance, password);
                     break;
                 default:
                     Console.WriteLine("Lütfen Geçerli Bir Değer Giriniz.");
+                    Console.WriteLine(" Para Çekmek İçin 1,\n Para Yatırmak İçin 2,\n Para Transferi İçin 3,\n Eğitim Ödemeleri İçin 4,\n Ödemeler için 5,\n Bilgi Güncellemek için 6 Tuşlayınız.");
+                    choice = Console.ReadLine();
                     break;
 
             }
         }
-        static void kartsizIslem() { }
+        static void withoutCard(double balance,string password) {
+            menu(balance, password);
+        }
         static void menu(double balance, string password)
         {
             Console.WriteLine("Kartlı İşlem için 1,");
@@ -136,10 +146,10 @@
             switch (choice)
             {
                 case "1":
-                    kartliIslem(balance, password);
+                    withCard(balance, password);
                     break;
                 case "2":
-                    kartsizIslem();
+                    withoutCard(balance, password);
                     break;
                 default:
                     Console.WriteLine("Lütfen Geçerli Bir Değer Giriniz.");
